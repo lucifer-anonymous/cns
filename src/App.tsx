@@ -19,6 +19,7 @@ import { StudentCart } from "./pages/student/StudentCart";
 import { StudentOrders } from "./pages/student/StudentOrders";
 import { StudentProfile } from "./pages/student/StudentProfile";
 import { StudentLogin } from "./pages/student/StudentLogin";
+import { StudentRegister } from "./pages/student/StudentRegister";
 import { AdminLogin } from "./pages/admin/AdminLogin";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminMenu } from "./pages/admin/AdminMenu";
@@ -55,6 +56,7 @@ const App = () => (
                     <Route path="/" element={<Index />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/student/login" element={<StudentLogin />} />
+                    <Route path="/student/register" element={<StudentRegister />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     
                     {/* Student Routes */}
