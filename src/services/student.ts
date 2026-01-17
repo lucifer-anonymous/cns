@@ -1,5 +1,6 @@
 import { apiClient } from '@/lib/api';
-import axios from 'axios';
+import api from '@/services/api';
+
 
 // Type definitions
 export interface Student {
@@ -54,7 +55,7 @@ export async function studentRegister(payload: RegisterPayload): Promise<AuthRes
   try {
     console.log('Sending registration request with payload:', payload);
     
-    const response = await axios.post<AuthResponse>(
+    const response = await api.post<AuthResponse>(
       '/api/v1/student/register', 
       payload,
       {
@@ -126,7 +127,7 @@ export async function studentVerify(payload: VerifyPayload): Promise<AuthRespons
 export async function studentLogin(payload: LoginPayload): Promise<AuthResponse> {
   try {
     console.log('Login request payload:', payload);
-    const response = await axios.post('/api/v1/student/login', payload, {
+    const response = await api.post('/api/v1/student/login', payload, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
