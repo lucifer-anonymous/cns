@@ -97,7 +97,21 @@ export async function studentRegister(payload: RegisterPayload): Promise<AuthRes
  */
 export async function studentVerify(payload: VerifyPayload): Promise<AuthResponse> {
   try {
-    const response = await apiClient.post<AuthResponse>('/api/v1/student/verify', payload);
+    console.log('Sending verification request with payload:', payload);
+    
+    const response = await api.post<AuthResponse>(
+      '/api/v1/student/verify', 
+      payload,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        withCredentials: false
+      }
+    );
+    
+    console.log('Verification successful:', response.data);
     
     if (!response.data) {
       throw new Error('No data received from server');
@@ -112,9 +126,21 @@ export async function studentVerify(payload: VerifyPayload): Promise<AuthRespons
     
   } catch (error: any) {
     console.error('Verification failed:', error);
-    const errorMessage = error?.response?.data?.message || 
-                        error?.message || 
-                        'Verification failed. Please try again.';
+    
+    let errorMessage = 'Verification failed. Please try again.';
+    
+    if (error.response) {
+      if (error.response.data?.message) {
+        errorMessage = error.response.data.message;
+      } else {
+        errorMessage = `Verification failed with status ${error.response.status}`;
+      }
+    } else if (error.request) {
+      errorMessage = 'No response from server. Please check your connection and try again.';
+    } else if (error.message) {
+      errorMessage = `Error: ${error.message}`;
+    }
+    
     throw new Error(errorMessage);
   }
 }
