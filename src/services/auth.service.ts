@@ -39,7 +39,7 @@ export const authService = {
   // Admin/Staff login via new dedicated endpoint
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await axios.post(`${API_BASE_URL}/v1/admin-auth/login`, {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/admin-auth/login`, {
         username: credentials.username.trim(),
         password: credentials.password
       });
@@ -55,7 +55,7 @@ export const authService = {
   // Admin/Staff registration
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
     try {
-      const response = await axios.post(`${API_BASE_URL}/v1/admin-auth/register`, {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/admin-auth/register`, {
         name: credentials.name.trim(),
         username: credentials.username.trim(),
         email: credentials.email.trim(),
@@ -80,13 +80,13 @@ export const authService = {
       
       // Try admin-auth endpoint first, fallback to general auth endpoint
       try {
-        const response = await axios.get(`${API_BASE_URL}/v1/admin-auth/me`, {
+        const response = await axios.get(`${API_BASE_URL}/api/v1/admin-auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
       } catch (adminError: any) {
         // If admin-auth fails, try the general auth endpoint
-        const response = await axios.get(`${API_BASE_URL}/v1/auth/me`, {
+        const response = await axios.get(`${API_BASE_URL}/api/v1/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
