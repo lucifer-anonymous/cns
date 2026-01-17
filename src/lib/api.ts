@@ -51,8 +51,6 @@ api.interceptors.request.use(
     if (typeof window !== 'undefined') {
       // Add CORS headers
       config.headers = config.headers || new AxiosHeaders();
-      config.headers['Access-Control-Allow-Origin'] = window.location.origin;
-      config.headers['Access-Control-Allow-Credentials'] = 'true';
       
       // Skip adding Authorization header for registration endpoint
       if (!config.url?.includes('/student/register')) {
