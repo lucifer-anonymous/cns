@@ -1,4 +1,5 @@
 import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse, AxiosHeaders } from 'axios';
+import { API_BASE_URL } from '@/config';
 
 // Add fallback for crypto.randomUUID()
 if (typeof crypto !== 'undefined' && !crypto.randomUUID) {
@@ -30,7 +31,7 @@ const apiBaseUrl = '';
 
 // Configure axios instance with default settings
 const api = axios.create({
-  baseURL: apiBaseUrl,
+  baseURL: API_BASE_URL,
   withCredentials: true, // Enable sending cookies with cross-origin requests
   headers: {
     'Content-Type': 'application/json',
